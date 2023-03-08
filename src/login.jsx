@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from './assets/logo.png'
 import PageAnimation from './PageAnimation'
-import { url } from './constants'
-import swal from 'sweetalert'
+import { baseURL } from './constants'
+import Swal from 'sweetalert2'
 
 function LogIn() {
   const [username, setUsername] = useState('')
@@ -15,7 +15,13 @@ function LogIn() {
   }
 
   async function validateCredentials(creds){
-    return await fetch(`${url}/api/values?username=${creds.username}&password=${creds.password}`)
+    return await fetch(`${baseURL}/api/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(creds)
+    })
     .then(data => {
       if(!data.ok){
         return null;
@@ -30,14 +36,18 @@ function LogIn() {
     event.preventDefault();
     const response = await validateCredentials({username, password});
     if (response != null){
-      swal("Success", {
-        buttons: false,
-        timer: 2000,
-      }).then(navigateHome);
+      Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(navigateHome);
     }
     else {
-      swal("Failure", {
-        buttons: false,
+      Swal.fire({
+        icon: 'error',
+        showConfirmButton: false,
+        title: 'Incorrect Credentials',
         timer: 2000,
       })
     }
