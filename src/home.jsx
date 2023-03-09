@@ -3,15 +3,18 @@ import logo from "./assets/logo.png"
 import NavBar from "./utils/navBar"
 import TopBar from "./utils/topBar"
 import BottomFooter from "./utils/footer"
+import { useLocation } from "react-router-dom"
 
 function Home(){
+    const { state } = useLocation()
+    const { name, role } = state
     return (
         <PageAnimation>
             <div className=" flex">
                 {/* Nav Bar */}
                     <NavBar/>
                 {/* Top Bar */}
-                    <TopBar/>
+                    <TopBar name={name} role={role}/>
                 {/* Bottom Bar */}
                     <BottomFooter/>
                 {/* Page Content */}

@@ -10,12 +10,8 @@ function LogIn() {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  function navigateHome(){
-  navigate("home", {replace: true});
-  }
-
   async function validateCredentials(creds){
-    return await fetch(`${baseURL}/api/user`, {
+    return await fetch(`${baseURL}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,7 +37,7 @@ function LogIn() {
           title: 'Success',
           showConfirmButton: false,
           timer: 2000,
-        }).then(navigateHome);
+        }).then(() => navigate("home", {replace: true, state: {name: response['name'], role: response['role']}}));
     }
     else {
       Swal.fire({
