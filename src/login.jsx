@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from './assets/logo.png'
-import PageAnimation from './PageAnimation'
-import { baseURL } from './constants'
+import PageAnimation from './utils/PageAnimation'
+import { baseURL } from './utils/constants'
 import Swal from 'sweetalert2'
 
 function LogIn() {
