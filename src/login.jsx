@@ -37,7 +37,7 @@ function LogIn() {
           title: 'Success',
           showConfirmButton: false,
           timer: 2000,
-        }).then(() => navigate("home", {replace: true, state: {name: response['name'], role: response['role']}}));
+        }).then(() => navigate("home", {replace: true, state: {name: response['Name'], role: response['RoleName']}}));
     }
     else {
       Swal.fire({
