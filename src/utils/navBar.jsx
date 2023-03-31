@@ -41,6 +41,11 @@ function NavBar({changePage}){
         setwhichMenuOpen(Index * 10 + index)
         setmenuOpen(false)
     }
+    function checkIfParentMenu(Index){
+        var indx = whichMenuOpen - (Index * 10)
+        if(Menus[Index].subMenus && Menus[Index].subMenus[indx]) { return true }
+        return false
+    }
     return (
         <div className={` ${menuOpen? "w-72" : "w-20"} z-10 bg-slate-50 duration-300 h-screen shadow-2xl relative p-2 pt-3`}>
             <img 
@@ -64,7 +69,7 @@ function NavBar({changePage}){
             <ul className=' pt-14 h-screen overflow-y-auto'>
                 {Menus.map((Menu, Index) => (
                     <div>
-                        <li key={Index} onClick={() => {updateMenu(Menu, Index)}} className={` flex rounded-md p-2 relative cursor-pointer text-black text-base ${whichMenuOpen == Index? 'bg-slate-200': 'hover:bg-slate-100'} items-center gap-x-4 ${Menu.gap? 'mt-9': 'mt-2'}`}>
+                        <li key={Index} onClick={() => {updateMenu(Menu, Index)}} className={` flex rounded-md p-2 relative cursor-pointer text-black text-base ${(whichMenuOpen == Index || checkIfParentMenu(Index))?'bg-slate-200': 'hover:bg-slate-100'} items-center gap-x-4 ${Menu.gap? 'mt-9': 'mt-2'}`}>
                             {/* Icon */}
                             <img src={Menu.icon} className={' mx-1 w-10'} alt={Menu.title} />
                             {/* Title */}
