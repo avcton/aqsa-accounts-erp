@@ -4,6 +4,7 @@ import NavBar from "./utils/navBar"
 import TopBar from "./utils/topBar"
 import BottomFooter from "./utils/footer"
 import { useLocation } from "react-router-dom"
+import { PageNavigation } from "./utils/menuItems"
 
 function Home(){
     const { state } = useLocation()
@@ -19,9 +20,7 @@ function Home(){
                 {/* Bottom Bar */}
                     <BottomFooter/>
                 {/* Page Content */}
-                <div className=" flex flex-col justify-center items-center h-screen w-screen bg-slate-100">
-                    <h3 className=" text-black">{page}</h3>
-                </div>
+                    {PageNavigation[page]}
             </div>
         </PageAnimation>
     )

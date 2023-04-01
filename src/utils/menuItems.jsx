@@ -5,6 +5,11 @@ import i_manage from '../assets/MenuIcons/manage-icon.svg'
 import i_reports from '../assets/MenuIcons/reports-icon.svg'
 import i_setup from '../assets/MenuIcons/setup-icon.svg'
 import i_voucher from '../assets/MenuIcons/voucher-icon.svg'
+import ChartOfAccounts from "../screens/coa"
+import Dashboard from "../screens/dashboard"
+import PeriodEntry from "../screens/periodEntry"
+import UserManage from "../screens/umanage"
+import YearEntry from "../screens/yearEntry"
 
 export const Menus = [
     {title: "Dashboard", icon: i_dashboard, gap: true},
@@ -40,3 +45,11 @@ export const Menus = [
     },
     {title: "User Management", icon: i_manage, highAuth: 1},
 ]
+
+export const PageNavigation = {
+    'Dashboard' : <Dashboard/>, // Alishba
+    'Chart of Accounts' : <ChartOfAccounts/>, //
+    'Year Entry' : <YearEntry/>, // Ali
+    'Period Entry' : <PeriodEntry/>, // Ali
+    'User Management' : <UserManage/>, // Rabia
+}
