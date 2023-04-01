@@ -7,8 +7,8 @@ import { useLocation } from "react-router-dom"
 import { PageNavigation } from "./utils/menuItems"
 
 function Home(){
-    const { state } = useLocation()
-    const { name, role } = state
+    // const { state } = useLocation()
+    // const { name, role } = state
     const [page, changePage] = useState('Dashboard')
     return (
         <PageAnimation>
@@ -16,7 +16,7 @@ function Home(){
                 {/* Nav Bar */}
                     <NavBar changePage={changePage}/>
                 {/* Top Bar */}
-                    <TopBar name={name} role={role}/>
+                    <TopBar name={'Name'} role={'Role'}/>
                 {/* Bottom Bar */}
                     <BottomFooter/>
                 {/* Page Content */}

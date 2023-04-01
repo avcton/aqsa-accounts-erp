@@ -49,7 +49,28 @@ export const Menus = [
 export const PageNavigation = {
     'Dashboard' : <Dashboard/>, // Alishba
     'Chart of Accounts' : <ChartOfAccounts/>, //
+    'User Management' : <UserManage/>, // Rabia
+
+    // Application Setup
     'Year Entry' : <YearEntry/>, // Ali
     'Period Entry' : <PeriodEntry/>, // Ali
-    'User Management' : <UserManage/>, // Rabia
+
+    // Voucher
+    'Cash Payment' : <Dashboard/>,
+    'Bank Payment' : <Dashboard/>,
+    'Cash Receipt' : <Dashboard/>,
+    'Bank Receipt' : <Dashboard/>,
+    'Journal Voucher' : <Dashboard/>,
+
+    // Reports
+    'Hierarchical COA' : <Dashboard/>,
+    'Accounts List' : <Dashboard/>,
+    'Voucher Print' : <Dashboard/>,
+    'Daybook List' : <Dashboard/>,
+    'Ledger Report' : <Dashboard/>,
+    'Trial Balance' : <Dashboard/>,
+    'Balance Sheet' : <Dashboard/>,
+    'Income Statement' : <Dashboard/>,
+    'Payables Report' : <Dashboard/>,
+    'Receivables Report' : <Dashboard/>,
 }
