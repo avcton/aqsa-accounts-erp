@@ -6,7 +6,7 @@ import BottomFooter from "./utils/footer"
 import { useLocation } from "react-router-dom"
 import { PageNavigation } from "./utils/menuItems"
 
-function Home(){
+function Home() {
     // const { state } = useLocation()
     // const { name, role } = state
     const [page, changePage] = useState('Dashboard')
@@ -14,13 +14,13 @@ function Home(){
         <PageAnimation>
             <div className=" flex">
                 {/* Nav Bar */}
-                    <NavBar changePage={changePage}/>
+                <NavBar changePage={changePage} />
                 {/* Top Bar */}
-                    <TopBar name={'Name'} role={'Role'}/>
+                <TopBar name={'Name'} role={'role'} />
                 {/* Bottom Bar */}
-                    <BottomFooter/>
+                <BottomFooter />
                 {/* Page Content */}
-                    {PageNavigation[page]}
+                {PageNavigation[page]}
             </div>
         </PageAnimation>
     )

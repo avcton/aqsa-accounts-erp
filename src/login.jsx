@@ -10,7 +10,7 @@ function LogIn() {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  async function validateCredentials(creds){
+  async function validateCredentials(creds) {
     return await fetch(`${baseURL}/api/login`, {
       method: 'POST',
       headers: {
@@ -18,26 +18,26 @@ function LogIn() {
       },
       body: JSON.stringify(creds)
     })
-    .then(data => {
-      if(!data.ok){
-        return null;
-      }
-      return data.json()
-    })
-    .catch(err => console.error('An execption is caught: ', err))
+      .then(data => {
+        if (!data.ok) {
+          return null;
+        }
+        return data.json()
+      })
+      .catch(err => console.error('An execption is caught: ', err))
   }
 
   // This master function validates the response from server and displays message accordingly 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await validateCredentials({username, password});
-    if (response != null){
+    const response = await validateCredentials({ username, password });
+    if (response != null) {
       Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => navigate("home", {replace: true, state: {name: response['Name'], role: response['RoleName']}}));
+        icon: 'success',
+        title: 'Success',
+        showConfirmButton: false,
+        timer: 2000,
+      }).then(() => navigate("home", { replace: true, state: { name: response['Name'], role: response['RoleName'] } }));
     }
     else {
       Swal.fire({
@@ -62,7 +62,7 @@ function LogIn() {
             <button className=' transition ease-in-out delay-150 duration-300 transform hover:scale-105 mt-5 focus:outline-none'>login</button>
           </form>
         </div>
-    </div>
+      </div>
     </PageAnimation>
   )
 }
