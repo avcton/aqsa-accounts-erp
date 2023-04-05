@@ -1,9 +1,6 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom'
 
-function ManageAccounts() {
-    const navigate = useNavigate()
+function ModifyAccounts() {
     const [users, setUsers] = useState([
         { Code: '1-101', name: 'Current Assets', Group: 'abc', Type: '1xyz' },
         { Code: '1-102', name: 'Current Liabilities', Group: 'abc', Type: 'mnb' },
@@ -22,22 +19,7 @@ function ManageAccounts() {
         const user = { ...newUser };
         setUsers([...users, user]);
         setNewUser({ Code: "", name: "", Group: "", Type: '' });
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
     };
-
-    const handleAccountDelete = (Code) => {
-        const updatedUsers = users.filter((user) => user.Code !== Code);
-        setUsers(updatedUsers);
-    };
-
-    const handleUpdateRequest = () => {
-        navigate("modify-account", { state: { } })
-    }
 
     return (
         <div className=" flex flex-col mt-14 items-center justify-center h-screen w-screen bg-slate-50 overflow-auto">
@@ -89,49 +71,8 @@ function ManageAccounts() {
                     </div>
                 </form>
             </div>
-
-            <h3 className=" text-3xl text-black font-bold mt-9 mb-1">Existing Accounts</h3>
-
-            {/* User List */}
-            <ul className="mt-10 mb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {users.map((user) => (
-                    <li key={user.Code} className="m-2">
-                        <div className="bg-white rounded-lg p-4 flex justify-between items-center">
-                            <div className=" mr-6">
-                                <div className="text-lg text-black font-bold">
-                                    {user.name}</div>
-                                <div className="text-gray-500 flex flex-row">
-                                    <h6 className=" font-bold mr-2"> Code:</h6>
-                                    {user.Code}</div>
-                                <div className="text-gray-500 flex flex-row">
-                                    <h6 className=" font-bold mr-2">Group:</h6>
-                                    {user.Group}
-                                </div>
-                                <div className="text-gray-500 flex flex-row">
-                                    <h6 className=" font-bold mr-2">Type:</h6>
-                                    {user.Type}
-                                </div>
-                            </div>
-                            <div className=" flex flex-col">
-                                {/* Update Button */}
-                                <button
-                                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2"
-                                    onClick={() => handleUpdateRequest()}>
-                                    Modify
-                                </button>
-                                {/* Remove Button */}
-                                <button
-                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-                                    onClick={() => handleAccountDelete(user.username)}>
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 }
 
-export default ManageAccounts;
+export default ModifyAccounts;

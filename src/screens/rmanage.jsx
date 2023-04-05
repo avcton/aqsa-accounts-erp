@@ -38,7 +38,7 @@ function RoleManagement() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                                 View Reports
                             </label>
-                            <input onChange={handleInputChange} checked={true}className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
+                            <input onChange={handleInputChange} checked={true} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
                             leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="checkbox" />
                         </div>
 
@@ -46,7 +46,7 @@ function RoleManagement() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 View Chart of Accounts
                             </label>
-                            <input onChange={handleInputChange} checked={true}className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
+                            <input onChange={handleInputChange} checked={true} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
                             leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="checkbox" />
                         </div>
 
@@ -54,7 +54,7 @@ function RoleManagement() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 Modify Chart of Accounts
                             </label>
-                            <input onChange={handleInputChange} checked={true}className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
+                            <input onChange={handleInputChange} checked={true} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
                             leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="checkbox" />
                         </div>
 
@@ -62,10 +62,22 @@ function RoleManagement() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 Download Reports
                             </label>
-                            <input onChange={handleInputChange} checked={true}className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
+                            <input onChange={handleInputChange} checked={true} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
                             leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="checkbox" />
                         </div>
                     </div>
+
+                    {/* Role Name */}
+                    <div className="flex md:flex-row flex-col -mx-1">
+                        <div className="w-full px-3 py-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+                                Role Name
+                            </label>
+                            <input className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
+                          leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="text" placeholder="Description" />
+                        </div>
+                    </div>
+
                     <div className="flex justify-center px-4 py-2">
                         <button
                             className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md"

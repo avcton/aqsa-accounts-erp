@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 function UserManagement() {
     const [users, setUsers] = useState([
@@ -15,6 +16,13 @@ function UserManagement() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        // Success Message
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            showConfirmButton: false,
+            timer: 2000,
+          });
         const user = { ...newUser };
         setUsers([...users, user]);
         setNewUser({ Name: "", Username: "", Password: "", Role: '' });

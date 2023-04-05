@@ -77,9 +77,9 @@ export const PageNavigation = {
     'Dashboard': <Dashboard />,
 
     // Chart of Accounts
-    'Manage Accounts': <ChartOfAccounts />,
     'List View': <AccountsList />,
     'Hierarchical View': <Hierarchical_r />,
+    'Manage Accounts': <ChartOfAccounts />,
 
     // Voucher
     'Cash Payment': <CashPayment />,
