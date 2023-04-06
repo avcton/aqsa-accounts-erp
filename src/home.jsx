@@ -16,7 +16,7 @@ function Home() {
                 {/* Nav Bar */}
                 <NavBar changePage={changePage} />
                 {/* Top Bar */}
-                <TopBar name={'Name'} role={'role'} />
+                <TopBar name={'name'} role={'role'} />
                 {/* Bottom Bar */}
                 <BottomFooter />
                 {/* Page Content */}

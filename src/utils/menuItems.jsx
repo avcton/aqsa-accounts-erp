@@ -23,6 +23,9 @@ import BalanceSheet from "../screens/balanceSheet"
 import IncomeStatement from "../screens/incomeStatement"
 import PayablesReport from "../screens/payablesReport"
 import ReceivablesReport from "../screens/receivablesReport"
+import JournalVoucher from "../screens/journalvoucher"
+import CashReceipt from "../screens/cashreceipt"
+import BankReceipt from "../screens/bankreceipt"
 
 export const Menus = [
     { title: "Dashboard", icon: i_dashboard, gap: true },
@@ -84,9 +87,9 @@ export const PageNavigation = {
     // Voucher
     'Cash Payment': <CashPayment />,
     'Bank Payment': <BankPayment />,
-    'Cash Receipt': <Dashboard />,
-    'Bank Receipt': <Dashboard />,
-    'Journal Voucher': <Dashboard />,
+    'Cash Receipt': <CashReceipt />,
+    'Bank Receipt': <BankReceipt />,
+    'Journal Voucher': <JournalVoucher />,
 
     // Reports
     'Vouchers List': <VouchersList />,
