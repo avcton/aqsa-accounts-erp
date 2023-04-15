@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { baseURL } from "../utils/constants";
 import Swal from "sweetalert2";
+import LoaderAnimation from "../utils/loader";
 
 function UserManagement() {
     const [users, setUsers] = useState([{}]);
@@ -190,10 +191,10 @@ function UserManagement() {
             <h3 className=" text-black text-3xl font-bold mt-9 mb-1">Current Users</h3>
 
             {/* User List */}
-            <ul className="mt-10 mb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {usersFetched && users.map((user) => (
+            {usersFetched ? <ul className="mt-10 mb-32 place-items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {users.map((user) => (
                     <li key={user.UserName} className="m-2">
-                        <div className="bg-white rounded-lg p-4 flex justify-between items-center">
+                        <div className="bg-white rounded-lg p-5 flex justify-between items-center">
                             <div className=" mr-6">
                                 <div className="text-lg text-black font-bold">
                                     {user.Name}</div>
@@ -226,7 +227,8 @@ function UserManagement() {
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul> : <LoaderAnimation />
+            }
         </div>
     );
 }
