@@ -2,16 +2,20 @@ import { useState, useEffect } from "react";
 import { baseURL } from "../utils/constants";
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
+import Dropdown from 'react-dropdown';
 
 function UserManagement() {
+    const [roleOptions, setRoleOptions] = useState([]);
+    const [selectedRole, setSelectedRole] = useState(null);
     const [users, setUsers] = useState([{}]);
     const [usersFetched, setUsersFetched] = useState(false)
     const [newUser, setNewUser] = useState(
-        { Name: null, UserName: null, Password: null, RoleCode: null });
+        { Name: '', UserName: '', Password: '', RoleCode: '' });
 
-    // Getting users on the first render
+    // Getting users and roles on the first render
     useEffect(() => {
         getUsers();
+        getRoles();
     }, [])
 
     // This functions handels the input field changes
@@ -19,10 +23,39 @@ function UserManagement() {
         setNewUser({ ...newUser, [e.target.name]: e.target.value });
     };
 
-    const handleFormSubmit = async (e) => {
+    // This function gets the role code for the selected role
+    async function getRoleCode(role) {
+        return await fetch(`${baseURL}/api/role?RoleName=${role}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(async response => {
+                const success = response.ok
+                response = await response.json()
+                if (success) { return response.RoleCode }
+                return null;
+            })
+            .catch(err => { console.log(err) })
+    }
+
+    async function handleFormSubmit(e) {
         e.preventDefault();
         const user = { ...newUser };
         Swal.showLoading()
+        const roleCode = await getRoleCode(selectedRole)
+        if (roleCode == null) {
+            Swal.fire({
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Failure',
+                text: res.Message,
+                timer: 2000,
+            })
+            return;
+        }
+        user.RoleCode = roleCode
         const res = await postUser(user)
 
         // Handling Reponse Accordingly
@@ -135,6 +168,22 @@ function UserManagement() {
             .catch(err => console.error('An execption is caught: ', err))
     }
 
+    async function getRoles() {
+        return await fetch(`${baseURL}/api/role`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(async data => {
+                data = await data.json()
+                data.map((value) => {
+                    setRoleOptions((prevOptions) => [...prevOptions, value.RoleName])
+                })
+            })
+            .catch(err => console.error('An execption is caught: ', err))
+    }
+
     return (
         <div className=" flex flex-col mt-14 items-center h-screen w-screen bg-slate-50 overflow-auto">
 
@@ -173,9 +222,8 @@ function UserManagement() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 Role
                             </label>
-                            <input name="RoleCode" onChange={handleInputChange}
-                                value={newUser.RoleCode} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
-                            leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="number" placeholder="User Role" />
+                            <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${selectedRole != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4 mb-3 
+                            leading-tight" options={roleOptions} value={selectedRole} onChange={(value) => { setSelectedRole(value.value) }} placeholder="Select a Role" />;
                         </div>
                     </div>
                     <div className="flex justify-center px-4 py-2">
@@ -211,12 +259,12 @@ function UserManagement() {
                                 </div>
                             </div>
                             <div className=" flex flex-col">
-                                {/* Update Button */}
+                                {/* Update Button
                                 <button
                                     className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2"
                                     onClick={() => handleUserDelete(user.UserName)}>
                                     Update
-                                </button>
+                                </button> */}
                                 {/* Remove Button */}
                                 <button
                                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
