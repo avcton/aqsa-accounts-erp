@@ -29,6 +29,11 @@ const orgChart = {
           children: [
             {
               name: 'Account 2',
+              children: [
+                {
+                  name: 'Account 3'
+                }
+              ]
             },
           ],
         },
