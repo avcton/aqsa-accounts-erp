@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { motion } from "framer-motion";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,74 +8,115 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { baseURL } from '../utils/constants';
+import LoaderAnimation from '../utils/loader';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: '#4B5563',
     color: theme.palette.common.white,
+    padding: '16px', // add padding to the header cells
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    padding: '16px', // add padding to the body cells
   },
 }));
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+
+const StyledTableRow = styled(TableRow)(({ theme, highlight }) => ({
+  ...({ // add a conditional statement to change the background color of the row
+    backgroundColor: highlight,
+  }),
+  '&:hover': { // add a hover effect to the table rows
+    backgroundColor: '#FFEDD5',
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
 
-function createData(AccountNumber, Description, Type, FinancialStatement, Group) {
-  return { AccountNumber, Description, Type, FinancialStatement, Group };
-}
-
-const rows = [
-  createData('1-101', 'Cash', 'Asset', 'Balance Sheet', 'Debit'),
-  createData('1-101', 'Cash', 'Expense', 'Balance Sheet', 'Debit'),
-  createData('1-101', 'Cash', 'Expense', 'Balance Sheet', 'Credit'),
-  createData('1-101', 'Cash', 'Expense', 'Balance Sheet', 'Debit'),
-  createData('1-101', 'Cash', 'Expense', 'Balance Sheet', 'Debit'),
-];
-
-
 export default function AccountsList() {
+  const [accounts, setAccounts] = React.useState([])
+  const [accountsFetched, setAccountsFetched] = React.useState([])
+
+  React.useEffect(() => {
+    getAccounts();
+  }, [])
+
+  const getAccounts = async () => {
+    setAccountsFetched(false)
+    return await fetch(`${baseURL}/api/account`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(async data => {
+        setAccounts(await data.json())
+        setAccountsFetched(true);
+      })
+      .catch(err => console.error('An execption is caught: ', err))
+  }
+
+  function filterNullValue(value) {
+    if (value == null) {
+      return ''
+    }
+    return value;
+  }
+
+  function highlightWhatColor(account) {
+    if (account.AccountType == null) {
+      // Level 1 Account
+      return '#6B7280'
+    }
+    else if (account.AccountGroup == null) {
+      // Level 2 Account
+      return '#D1D5DB'
+    }
+    return '#E2E8F0'
+  }
+
   return (
-    <div className='flex flex-col h-screen w-screen align items-center justify-center bg-slate-50 overflow-auto'>
-    <div className=' flex flex-col items-center justify-center '>
-      <h3 className=" text-black text-3xl font-bold mb-6 ">List of Accounts</h3>
+    <div className=" bg-slate-50 z-20">
+      <motion.div initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.5 }} className=" flex flex-col mt-14 ml-20 md:ml-0 items-center h-screen w-screen bg-slate-50 overflow-auto">
+        <div className=' flex flex-col items-center justify-center '>
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 350 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Account Name</StyledTableCell>
-                <StyledTableCell align="center">Description</StyledTableCell>
-                <StyledTableCell align="center">Type</StyledTableCell>
+          <h3 className=" text-black text-3xl font-bold mb-6 mt-14 ">List of Accounts</h3>
 
-                <StyledTableCell align="center">Financial Statement</StyledTableCell>
-                <StyledTableCell align="center">Group</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.AccountNumber}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{row.Description}</StyledTableCell>
-                  <StyledTableCell align="center">{row.Type}</StyledTableCell>
+          {accountsFetched ? <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 350, }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align='center'>Account Code</StyledTableCell>
+                  <StyledTableCell align='center'>Account Name</StyledTableCell>
+                  <StyledTableCell align='center'>Account Type</StyledTableCell>
+                  <StyledTableCell align='center'>Account Group</StyledTableCell>
+                  <StyledTableCell align='center'>Account Status</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  accounts.map((account) => (
+                    <StyledTableRow key={account.AccountCode} highlight={highlightWhatColor(account)}>
+                      <StyledTableCell component="th" scope="row">
+                        {account.AccountCode}
+                      </StyledTableCell>
+                      <StyledTableCell align='center'>{account.AccountName}</StyledTableCell>
+                      <StyledTableCell align='center'>{filterNullValue(account.AccountType)}</StyledTableCell>
+                      <StyledTableCell align='center'>{filterNullValue(account.AccountGroup)}</StyledTableCell>
+                      <StyledTableCell align='center'>{account.AccountStatus ? 'Active' : 'Inactive'}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer> : <LoaderAnimation />}
 
-                  <StyledTableCell align="center">{row.FinancialStatement}</StyledTableCell>
-                  <StyledTableCell align="center">{row.Group}</StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

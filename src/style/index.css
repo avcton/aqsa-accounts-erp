@@ -20,12 +20,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
-
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -59,14 +59,32 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.node__root>circle {
+  fill: antiquewhite;
+  r: 25;
+}
+
+.node__branch>circle {
+  fill: aliceblue;
+  r: 21
+}
+
+.node__leaf>circle {
+  fill: seashell;
+  /* Let's also make the radius of leaf nodes larger */
+  r: 18;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
