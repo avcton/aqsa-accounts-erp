@@ -227,14 +227,14 @@ export default function PeriodEntry() {
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
             Period Entries for Year
           </label>
-          <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${yearSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4 mb-3 
+          <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${yearSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
                             leading-tight" options={yearOptions} value={yearSelected} onChange={(value) => {
               setYearSelected(value.value);
             }} placeholder="Select a Year" />;
         </div>) : <LoaderAnimation />}
 
         {/* Divider */}
-        <hr className=" h-px my-8 w-2/5 bg-black border-black" />
+        <hr className=" h-px mb-8 w-2/5 bg-black border-black" />
 
         {/* Form */}
         <div className=" flex flex-col items-center justify-center">
