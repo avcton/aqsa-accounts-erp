@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { baseURL } from "../utils/constants"
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
-import Dropdown from 'react-dropdown';
+import Select from "react-select";
 
 export default function PeriodEntry() {
   const [yearOptions, setYearOptions] = useState([])
@@ -25,6 +25,12 @@ export default function PeriodEntry() {
     }
   }, [yearSelected])
 
+  useEffect(() => {
+    if (yearsFetched == true) {
+      setYearSelected(yearOptions[0])
+    }
+  }, [yearOptions])
+
   const handleInputChange = (e) => {
     setNewPeriod({ ...newPeriod, [e.target.name]: e.target.value });
   };
@@ -33,7 +39,7 @@ export default function PeriodEntry() {
     e.preventDefault();
     const Period = { ...newPeriod };
     Swal.showLoading()
-    const YearCode = await getYearCode(yearSelected)
+    const YearCode = await getYearCode(yearSelected.value)
     Period.YearCode = YearCode
     const res = await postPeriod(Period)
 
@@ -91,10 +97,10 @@ export default function PeriodEntry() {
       .then(async data => {
         data = await data.json()
         data.map((value) => {
-          setYearOptions((prevOptions) => [...prevOptions, value.YearName])
+          const yearOption = { label: value.YearName[0].toUpperCase() + value.YearName.substring(1), value: value.YearName }
+          setYearOptions((prevOptions) => [...prevOptions, yearOption])
         })
         setYearsFetched(true);
-        setYearSelected(data[0].YearName)
       })
       .catch(err => console.error('An execption is caught: ', err))
   }
@@ -117,7 +123,7 @@ export default function PeriodEntry() {
 
   const getPeriods = async () => {
     setPeriodsFetched(false)
-    return await fetch(`${baseURL}/api/period?yearname=${yearSelected}`, {
+    return await fetch(`${baseURL}/api/period?yearname=${yearSelected.value}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -223,18 +229,58 @@ export default function PeriodEntry() {
         <h3 className={` text-black text-3xl font-bold mt-14 mb-6`}>Period Entry</h3>
 
         {/* Dropdown */}
-        {yearsFetched ? (<div className="flex flex-col items-center w-max px-3 py-3">
+        <div className="flex flex-col items-center w-max px-3 py-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
             Period Entries for Year
           </label>
-          <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${yearSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
-                            leading-tight" options={yearOptions} value={yearSelected} onChange={(value) => {
-              setYearSelected(value.value);
-            }} placeholder="Select a Year" />;
-        </div>) : <LoaderAnimation />}
+          <Select
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: '#F3F4F6',
+                borderRadius: '0.5rem',
+                height: '53px',
+                borderColor: state.isFocused ? '#6B7280' : '#D1D5DB',
+                boxShadow: state.isFocused ? '0 0 0 1px gray-400' : 'none',
+                '&:hover': {
+                  borderColor: state.isFocused ? '#9CA3AF' : '#D1D5DB'
+                }
+              }),
+              menu: (baseStyles) => ({
+                ...baseStyles,
+                backgroundColor: 'white',
+                borderRadius: '0.5rem',
+                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+                marginTop: '0.5rem'
+              }),
+              option: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: state.isSelected ? '#F3F4F6' : 'white',
+                color: state.isSelected ? '#111827' : '#374151',
+                '&:hover': {
+                  backgroundColor: '#F3F4F6',
+                  color: 'gray-900'
+                }
+              }),
+              singleValue: (baseStyles) => ({
+                ...baseStyles,
+                color: 'black'
+              }),
+              placeholder: (baseStyles) => ({
+                ...baseStyles,
+                color: '#9CA3AF'
+              })
+            }}
+            options={yearOptions}
+            value={yearSelected}
+            isLoading={yearsFetched ? false : true}
+            onChange={(value) => { setYearSelected(value) }}
+            placeholder={"Select a Year"}
+          />
+        </div>
 
         {/* Divider */}
-        <hr className=" h-px mb-8 w-2/5 bg-black border-black" />
+        <hr className=" h-px my-8 w-2/5 bg-black border-black" />
 
         {/* Form */}
         <div className=" flex flex-col items-center justify-center">
@@ -254,7 +300,7 @@ export default function PeriodEntry() {
             </div>
           </form>
 
-          <h3 className=" text-black text-2xl font-bold mx-28 mt-9 mb-1">Current Periods - '{yearSelected}'</h3>
+          <h3 className=" text-black text-2xl font-bold mx-28 mt-9 mb-1">Current Periods - '{yearSelected?.label}'</h3>
           {/* Periods Fetched */}
           {periodsFetched ? periods.length < 1 ? <h4 className=" text-black text-xl font-semibold mt-9 mb-1 mx-28">Whoops! Nothing to show here</h4> : <ul className="mt-10 mb-32 place-items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {periods.map((period, index) => (

@@ -4,9 +4,14 @@ import { baseURL } from "../utils/constants"
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
 import Dropdown from 'react-dropdown';
+import SelectDown from "../utils/dropdown";
+import Select from "react-select";
 
 function ManageAccounts() {
-    const accountLevels = ['Group', 'Detail']
+    const accountLevels = [
+        { label: 'Group', value: 'group' },
+        { label: 'Detail', value: 'detail' },
+    ]
     const [accounts, setAccounts] = useState([])
     const [accountsFetched, setAccountsFetched] = useState(false)
     const [levelSelected, setLevelSelected] = useState(null)
@@ -35,7 +40,9 @@ function ManageAccounts() {
     useEffect(() => {
         if (parentAccounts.length > 0) {
             setParentNamesFetched(false)
-            const names = parentAccounts.map((parent) => { return parent.AccountName })
+            const names = parentAccounts.map((parent) => {
+                return { label: parent.AccountName[0].toUpperCase() + parent.AccountName.substring(1), value: parent.AccountName }
+            })
             setParentNames(names)
             setParentNamesFetched(true)
         }
@@ -49,8 +56,8 @@ function ManageAccounts() {
 
     const getChildAccountCode = async () => {
         const parentData = {
-            ParentCode: getParentCode(parentSelected),
-            ParentLevel: levelSelected == 'Group' ? 1 : 2
+            ParentCode: getParentCode(parentSelected.value),
+            ParentLevel: levelSelected == 'group' ? 1 : 2
         }
         setAccountCodeFetched(false)
         return await fetch(`${baseURL}/api/accounttree`, {
@@ -78,8 +85,8 @@ function ManageAccounts() {
     async function handleFormSubmit(e) {
         e.preventDefault();
         const Account = { ...newAccount };
-        Account.ParentCode = getParentCode(parentSelected)
-        Account.ParentLevel = levelSelected == 'Group' ? 1 : 2;
+        Account.ParentCode = getParentCode(parentSelected?.value)
+        Account.ParentLevel = levelSelected == 'group' ? 1 : 2;
         Swal.showLoading()
         const res = await postAccount(Account)
 
@@ -144,6 +151,7 @@ function ManageAccounts() {
                 Swal.hideLoading()
                 if (response.Success) {
                     getAccounts();
+                    getParentAccounts();
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -202,7 +210,7 @@ function ManageAccounts() {
 
     const getParentAccounts = async () => {
         setParentAccountsFetched(false)
-        const parentLevel = levelSelected == 'Group' ? 1 : 2
+        const parentLevel = levelSelected == 'group' ? 1 : 2
         return await fetch(`${baseURL}/api/accounttree?level=${parentLevel}`, {
             method: 'GET',
             headers: {
@@ -232,20 +240,61 @@ function ManageAccounts() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                                 Account Type
                             </label>
-                            <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${levelSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
-                            leading-tight" options={accountLevels} value={levelSelected} onChange={(value) => {
-                                    setLevelSelected(value.value)
-                                }} placeholder="Select Account Type" />
+                            <SelectDown options={accountLevels} setChange={setLevelSelected} placeholder={"Select Account Type"} />
                         </div>
 
-                        <div className="w-full px-3 py-3">
+                        <div className="w-full px-3 py-3 flex flex-col">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                                 Parent Account
                             </label>
-                            <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${parentSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
+                            <Select
+                                styles={{
+                                    control: (baseStyles, state) => ({
+                                        ...baseStyles,
+                                        backgroundColor: '#F3F4F6',
+                                        borderRadius: '0.5rem',
+                                        height: '53px',
+                                        borderColor: state.isFocused ? '#6B7280' : '#D1D5DB',
+                                        boxShadow: state.isFocused ? '0 0 0 1px gray-400' : 'none',
+                                        '&:hover': {
+                                            borderColor: state.isFocused ? '#9CA3AF' : '#D1D5DB'
+                                        }
+                                    }),
+                                    menu: (baseStyles) => ({
+                                        ...baseStyles,
+                                        backgroundColor: 'white',
+                                        borderRadius: '0.5rem',
+                                        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+                                        marginTop: '0.5rem'
+                                    }),
+                                    option: (baseStyles, state) => ({
+                                        ...baseStyles,
+                                        backgroundColor: state.isSelected ? '#F3F4F6' : 'white',
+                                        color: state.isSelected ? '#111827' : '#374151',
+                                        '&:hover': {
+                                            backgroundColor: '#F3F4F6',
+                                            color: 'gray-900'
+                                        }
+                                    }),
+                                    singleValue: (baseStyles) => ({
+                                        ...baseStyles,
+                                        color: 'black'
+                                    }),
+                                    placeholder: (baseStyles) => ({
+                                        ...baseStyles,
+                                        color: '#9CA3AF'
+                                    })
+                                }}
+                                options={parentNames}
+                                value={parentSelected}
+                                isLoading={parentNamesFetched || levelSelected == null ? false : true}
+                                onChange={(value) => { setParentSelected(value) }}
+                                placeholder={"Select Parent Account"}
+                            />
+                            {/* {levelSelected == null || parentNamesFetched ? <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${parentSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
                             leading-tight" options={parentNames} value={parentSelected} onChange={(value) => {
                                     setParentSelected(value.value);
-                                }} placeholder="Select Parent Account" />
+                                }} placeholder="Select Parent Account" /> : <LoaderAnimation small={true} />} */}
                         </div>
                     </div>
 

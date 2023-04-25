@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { baseURL } from "../utils/constants";
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
-import Dropdown from 'react-dropdown';
+import SelectDown from "../utils/dropdown";
 
 function UserManagement() {
     const [roleOptions, setRoleOptions] = useState([]);
+    const [roleOptionsFetched, setRoleOptionsFetched] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
     const [users, setUsers] = useState([{}]);
     const [usersFetched, setUsersFetched] = useState(false)
@@ -179,8 +180,10 @@ function UserManagement() {
             .then(async data => {
                 data = await data.json()
                 data.map((value) => {
-                    setRoleOptions((prevOptions) => [...prevOptions, value.RoleName])
+                    const roleOption = { label: value.RoleName[0].toUpperCase() + value.RoleName.substring(1), value: value.RoleName }
+                    setRoleOptions((prevOptions) => [...prevOptions, roleOption])
                 })
+                setRoleOptionsFetched(true)
             })
             .catch(err => console.error('An execption is caught: ', err))
     }
@@ -227,8 +230,9 @@ function UserManagement() {
                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                     Role
                                 </label>
-                                <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${selectedRole != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4 mb-3 
-                            leading-tight" options={roleOptions} value={selectedRole} onChange={(value) => { setSelectedRole(value.value) }} placeholder="Select a Role" />;
+                                <SelectDown
+                                    isLoading={roleOptionsFetched ? false : true}
+                                    options={roleOptions} setChange={setSelectedRole} placeholder={"Select a Role"} />
                             </div>
                         </div>
                         <div className="flex justify-center px-4 py-2">
