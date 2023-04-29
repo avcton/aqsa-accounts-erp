@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { baseURL } from "../utils/constants";
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
-import SelectDown from "../utils/dropdown";
+import { SelectDown } from "../utils/dropdown";
 
 function UserManagement() {
     const [roleOptions, setRoleOptions] = useState([]);

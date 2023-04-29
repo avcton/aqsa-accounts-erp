@@ -5,8 +5,6 @@ import i_manage from '../assets/MenuIcons/manage-icon.svg'
 import i_reports from '../assets/MenuIcons/reports-icon.svg'
 import i_setup from '../assets/MenuIcons/setup-icon.svg'
 import i_voucher from '../assets/MenuIcons/voucher-icon.svg'
-import BankPayment from "../screens/bankPaymentVoucher"
-import CashPayment from "../screens/cashPaymentVoucher"
 import ChartOfAccounts from "../screens/manageAccounts"
 import Dashboard from "../screens/dashboard"
 import PeriodEntry from "../screens/periodEntry"
@@ -23,22 +21,11 @@ import BalanceSheet from "../screens/balanceSheet"
 import IncomeStatement from "../screens/incomeStatement"
 import PayablesReport from "../screens/payablesReport"
 import ReceivablesReport from "../screens/receivablesReport"
-import JournalVoucher from "../screens/journalvoucher"
-import CashReceipt from "../screens/cashreceipt"
-import BankReceipt from "../screens/bankreceipt"
+import Voucher from "../screens/vouchers"
 
 export const Menus = [
     { title: "Dashboard", icon: i_dashboard, gap: true },
-    {
-        title: "Vouchers", icon: i_voucher, gap: true,
-        subMenus: [
-            { title: 'Cash Payment', icon: logo, },
-            { title: 'Bank Payment', icon: logo, },
-            { title: 'Cash Receipt', icon: logo, },
-            { title: 'Bank Receipt', icon: logo, },
-            { title: 'Journal Voucher', icon: logo, },
-        ]
-    },
+    { title: "Vouchers", icon: i_voucher, gap: true, },
     {
         title: "Chart of Accounts", icon: i_coa,
         subMenus: [
@@ -76,36 +63,35 @@ export const Menus = [
     },
 ]
 
-export const PageNavigation = {
-    'Dashboard': <Dashboard />,
+export function GetScreen({ screen, user }) {
+    const PageNavigation = {
+        'Dashboard': <Dashboard />,
 
-    // Chart of Accounts
-    'List View': <AccountsList />,
-    'Hierarchical View': <Hierarchical_r />,
-    'Manage Accounts': <ChartOfAccounts />,
+        // Chart of Accounts
+        'List View': <AccountsList />,
+        'Hierarchical View': <Hierarchical_r />,
+        'Manage Accounts': <ChartOfAccounts />,
 
-    // Voucher
-    'Cash Payment': <CashPayment />,
-    'Bank Payment': <BankPayment />,
-    'Cash Receipt': <CashReceipt />,
-    'Bank Receipt': <BankReceipt />,
-    'Journal Voucher': <JournalVoucher />,
+        // Voucher
+        'Vouchers': <Voucher user={user} />,
 
-    // Reports
-    'Vouchers List': <VouchersList />,
-    'Daybook List': <DayBookList />,
-    'Ledger Report': <LedgerReport />,
-    'Trial Balance': <TrialBalance />,
-    'Balance Sheet': <BalanceSheet />,
-    'Income Statement': <IncomeStatement />,
-    'Payables Report': <PayablesReport />,
-    'Receivables Report': <ReceivablesReport />,
+        // Reports
+        'Vouchers List': <VouchersList />,
+        'Daybook List': <DayBookList />,
+        'Ledger Report': <LedgerReport />,
+        'Trial Balance': <TrialBalance />,
+        'Balance Sheet': <BalanceSheet />,
+        'Income Statement': <IncomeStatement />,
+        'Payables Report': <PayablesReport />,
+        'Receivables Report': <ReceivablesReport />,
 
-    // Application Setup
-    'Year Entry': <YearEntry />,
-    'Period Entry': <PeriodEntry />,
+        // Application Setup
+        'Year Entry': <YearEntry />,
+        'Period Entry': <PeriodEntry />,
 
-    // Management
-    'Manage Users': <UserManagement />,
-    'Manage Roles': <RoleManagement />,
+        // Management
+        'Manage Users': <UserManagement />,
+        'Manage Roles': <RoleManagement />,
+    }
+    return PageNavigation[screen];
 }

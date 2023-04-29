@@ -60,17 +60,17 @@ button:focus-visible {
 }
 
 .node__root>circle {
-  fill: antiquewhite;
+  fill: #a9dde8;
   r: 25;
 }
 
 .node__branch>circle {
-  fill: aliceblue;
+  fill: #FCC29A;
   r: 21
 }
 
 .node__leaf>circle {
-  fill: seashell;
+  fill: #FDE9C9;
   /* Let's also make the radius of leaf nodes larger */
   r: 18;
 }

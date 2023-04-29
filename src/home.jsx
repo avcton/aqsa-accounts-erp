@@ -4,11 +4,15 @@ import NavBar from "./utils/navBar"
 import TopBar from "./utils/topBar"
 import BottomFooter from "./utils/footer"
 import { useLocation } from "react-router-dom"
-import { PageNavigation } from "./utils/menuItems"
+import { GetScreen } from "./utils/menuItems"
 
 function Home() {
     const { state } = useLocation()
-    const { name, role } = state
+
+    // Name, Role and User Rights
+    const { name, role, rights } = state
+
+    // Initial Page = Dashboard
     const [page, changePage] = useState('Dashboard')
     return (
         <PageAnimation>
@@ -20,7 +24,7 @@ function Home() {
                 {/* Bottom Bar */}
                 <BottomFooter />
                 {/* Page Content */}
-                {PageNavigation[page]}
+                <GetScreen screen={page} user={{ name, role, rights }} />
             </div>
         </PageAnimation>
     )

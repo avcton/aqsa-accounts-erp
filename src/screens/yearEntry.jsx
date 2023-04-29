@@ -51,7 +51,7 @@ export default function YearEntry() {
 
     const getYears = async () => {
         setYearsFetched(false)
-        return await fetch(`${baseURL}/api/year`, {
+        return await fetch(`${baseURL}/api/year?activeonly=false`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

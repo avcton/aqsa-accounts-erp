@@ -26,7 +26,7 @@ export default function PeriodEntry() {
   }, [yearSelected])
 
   useEffect(() => {
-    if (yearsFetched == true) {
+    if (yearsFetched == true && yearOptions.length > 0) {
       setYearSelected(yearOptions[0])
     }
   }, [yearOptions])
@@ -88,7 +88,7 @@ export default function PeriodEntry() {
 
   const getYears = async () => {
     setYearsFetched(false)
-    return await fetch(`${baseURL}/api/year`, {
+    return await fetch(`${baseURL}/api/year?activeonly=true`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ export default function PeriodEntry() {
 
   const getPeriods = async () => {
     setPeriodsFetched(false)
-    return await fetch(`${baseURL}/api/period?yearname=${yearSelected.value}`, {
+    return await fetch(`${baseURL}/api/period?yearname=${yearSelected?.value}&getAllActive=false`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -296,11 +296,13 @@ export default function PeriodEntry() {
             </div>
 
             <div className="flex justify-center px-4 py-4">
-              <button className='px-4 py-2 bg-orange-400 font-semibold text-white rounded-lg'>Insert Period</button>
+              <button
+                disabled={yearSelected == null ? true : false}
+                className='px-4 py-2 bg-orange-400 font-semibold text-white rounded-lg'>Insert Period</button>
             </div>
           </form>
 
-          <h3 className=" text-black text-2xl font-bold mx-28 mt-9 mb-1">Current Periods - '{yearSelected?.label}'</h3>
+          <h3 className=" text-black text-3xl font-bold mx-28 mt-9 mb-1">Current Periods - '{yearSelected?.label}'</h3>
           {/* Periods Fetched */}
           {periodsFetched ? periods.length < 1 ? <h4 className=" text-black text-xl font-semibold mt-9 mb-1 mx-28">Whoops! Nothing to show here</h4> : <ul className="mt-10 mb-32 place-items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {periods.map((period, index) => (
@@ -330,7 +332,7 @@ export default function PeriodEntry() {
                 </div>
               </li>
             ))}
-          </ul> : <LoaderAnimation />}
+          </ul> : yearOptions.length > 0 ? <LoaderAnimation /> : <h3 className=" text-black text-xl font-bold mx-28 mt-9 mb-1">No Years Active</h3>}
         </div>
       </motion.div>
     </div>

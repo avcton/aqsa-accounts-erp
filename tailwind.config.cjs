@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        COALevel1: '#334155',
-        COALevel2: '#71717A',
-        COALevel3: '#525252'
+        COALevel1: '#a9dde8',
+        COALevel2: '#FCC29A',
+        COALevel3: '#FDE9C9'
       }
     },
   },

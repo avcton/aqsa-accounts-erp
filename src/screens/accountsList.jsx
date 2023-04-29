@@ -28,7 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme, highlight }) => ({
     backgroundColor: highlight,
   }),
   '&:hover': { // add a hover effect to the table rows
-    backgroundColor: '#FFEDD5',
+    backgroundColor: '#CBD5E1',
   },
   '&:last-child td, &:last-child th': {
     border: 0,
@@ -68,13 +68,13 @@ export default function AccountsList() {
   function highlightWhatColor(account) {
     if (account.AccountType == null) {
       // Level 1 Account
-      return '#6B7280'
+      return '#a9dde8'
     }
     else if (account.AccountGroup == null) {
       // Level 2 Account
-      return '#D1D5DB'
+      return '#FCC29A'
     }
-    return '#E2E8F0'
+    return '#FDE9C9'
   }
 
   return (

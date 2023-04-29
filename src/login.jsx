@@ -18,11 +18,11 @@ function LogIn() {
       },
       body: JSON.stringify(creds)
     })
-      .then(data => {
-        if (!data.ok) {
-          return null;
-        }
-        return data.json()
+      .then(async response => {
+        const success = response.ok
+        response = await response.json()
+        if (success) return { Success: success, Message: response }
+        return { Success: success, Message: response.Message }
       })
       .catch(err => console.error('An execption is caught: ', err))
   }
@@ -31,19 +31,21 @@ function LogIn() {
   async function loginUser(event) {
     event.preventDefault();
     const response = await validateCredentials({ username, password });
-    if (response != null) {
+    if (response.Success) {
       Swal.fire({
         icon: 'success',
         title: 'Success',
+        text: "Successfully Authenticated",
         showConfirmButton: false,
         timer: 2000,
-      }).then(() => navigate("home", { replace: true, state: { name: response['Name'], role: response['RoleName'] } }));
+      }).then(() => navigate("home", { replace: true, state: { name: response.Message.Name, role: response.Message.RoleName, rights: response.Message.Rights } }));
     }
     else {
       Swal.fire({
         icon: 'error',
+        title: 'Failure',
+        text: response.Message,
         showConfirmButton: false,
-        title: 'Incorrect Credentials',
         timer: 2000,
       })
     }

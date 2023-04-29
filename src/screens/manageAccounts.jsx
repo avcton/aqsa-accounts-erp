@@ -3,8 +3,7 @@ import { useState, useEffect } from "react"
 import { baseURL } from "../utils/constants"
 import Swal from "sweetalert2";
 import LoaderAnimation from "../utils/loader";
-import Dropdown from 'react-dropdown';
-import SelectDown from "../utils/dropdown";
+import { SelectDown } from "../utils/dropdown";
 import Select from "react-select";
 
 function ManageAccounts() {
@@ -291,10 +290,6 @@ function ManageAccounts() {
                                 onChange={(value) => { setParentSelected(value) }}
                                 placeholder={"Select Parent Account"}
                             />
-                            {/* {levelSelected == null || parentNamesFetched ? <Dropdown menuClassName=" mt-4 cursor-pointer" placeholderClassName={`${parentSelected != null ? 'text-black' : 'text-gray-400'}`} className=" appearance-textfield block w-full bg-gray-100 text-black border border-gray-300  rounded-lg py-4 px-4
-                            leading-tight" options={parentNames} value={parentSelected} onChange={(value) => {
-                                    setParentSelected(value.value);
-                                }} placeholder="Select Parent Account" /> : <LoaderAnimation small={true} />} */}
                         </div>
                     </div>
 
