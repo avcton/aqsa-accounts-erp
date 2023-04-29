@@ -83,7 +83,7 @@ export default function AccountsList() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }} className=" flex flex-col mt-14 ml-20 md:ml-0 items-center h-screen w-screen bg-slate-50 overflow-auto">
-        <div className=' flex flex-col items-center justify-center '>
+        <div className=' flex flex-col items-center justify-center mb-32'>
 
           <h3 className=" text-black text-3xl font-bold mb-6 mt-14 ">List of Accounts</h3>
 

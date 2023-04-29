@@ -66,7 +66,8 @@ export function SelectDownV2({ value, options, setChange, placeholder, isLoading
                 backgroundColor: 'white',
                 borderRadius: '0.5rem',
                 boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
-                marginTop: '0.5rem'
+                marginTop: '0.5rem',
+                maxHeight: '200px'
             }),
             option: (baseStyles, state) => ({
                 ...baseStyles,

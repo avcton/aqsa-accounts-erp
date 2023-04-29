@@ -30,7 +30,9 @@ function LogIn() {
   // This master function validates the response from server and displays message accordingly 
   async function loginUser(event) {
     event.preventDefault();
+    Swal.showLoading()
     const response = await validateCredentials({ username, password });
+    Swal.hideLoading()
     if (response.Success) {
       Swal.fire({
         icon: 'success',
