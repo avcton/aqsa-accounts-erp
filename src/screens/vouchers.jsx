@@ -68,7 +68,7 @@ export default function Voucher({ user }) {
 
     // Date Converter
     useEffect(() => {
-        const convertedDate = date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+        const convertedDate = date.toLocaleDateString('en-US', { timeZone: 'Asia/Karachi' });
         const formattedDate = format(new Date(convertedDate), 'yyyy-MM-dd');
         setFormattedDate(formattedDate)
     }, [date])
