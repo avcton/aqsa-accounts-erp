@@ -200,19 +200,22 @@ export default function YearEntry() {
                                     <div className="text-lg text-black font-bold">
                                         {year.YearName}</div>
                                     <div className="text-gray-500 flex flex-row">
+                                        <h6 className=" font-bold mr-2">YearCode:</h6>
+                                        {year.YearCode}</div>
+                                    <div className="text-gray-500 flex flex-row">
                                         <h6 className=" font-bold mr-2">Status:</h6>
                                         {year.YearStatus ? 'Active' : 'Inactive'}</div>
                                 </div>
                                 <div className=" flex flex-col">
                                     {/* Disable Button */}
                                     <button
-                                        className="bg-green-600 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2"
+                                        className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md mb-2"
                                         onClick={() => handleYearToggle(year.YearCode)}>
                                         {year.YearStatus ? 'Close' : 'Open'}
                                     </button>
                                     {/* Remove Button */}
                                     <button
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                                        className="bg-CancelExcel hover:bg-CancelExcelHover text-white px-4 py-2 rounded-md"
                                         onClick={() => handleYearDelete(year.YearName)}>
                                         Remove
                                     </button>

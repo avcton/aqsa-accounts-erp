@@ -359,7 +359,7 @@ function UserManagement() {
                                     </div>
                                     {/* Remove Button */}
                                     <button
-                                        className="bg-red-500 hover:bg-red-600 text-white h-12 px-4 mt-4 py-2 rounded-md"
+                                        className="bg-CancelExcel hover:bg-CancelExcelHover text-white h-12 px-4 mt-4 py-2 rounded-md"
                                         onClick={() => handleUserDelete(user.UserName)}>
                                         Remove
                                     </button>

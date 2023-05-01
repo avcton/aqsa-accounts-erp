@@ -312,19 +312,22 @@ export default function PeriodEntry() {
                     <div className="text-lg text-black font-bold">
                       {period.PeriodName}</div>
                     <div className="text-gray-500 flex flex-row">
+                      <h6 className=" font-bold mr-2">PeriodCode:</h6>
+                      {period.PeriodCode}</div>
+                    <div className="text-gray-500 flex flex-row">
                       <h6 className=" font-bold mr-2">Status:</h6>
                       {period.PeriodStatus ? 'Active' : 'Inactive'}</div>
                   </div>
                   <div className=" flex flex-col">
                     {/* Disable Button */}
                     <button
-                      className="bg-green-600 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2"
+                      className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md mb-2"
                       onClick={() => handlePeriodToggle(period.PeriodCode)}>
                       {period.PeriodStatus ? 'Close' : 'Open'}
                     </button>
                     {/* Remove Button */}
                     <button
-                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                      className="bg-CancelExcel hover:bg-CancelExcelHover text-white px-4 py-2 rounded-md"
                       onClick={() => handlePeriodDelete(period.PeriodCode)}>
                       Remove
                     </button>

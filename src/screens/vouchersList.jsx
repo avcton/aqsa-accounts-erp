@@ -27,7 +27,7 @@ const generatePDF = vouchers => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["Voucher No", "Voucher Date", "Particulars", "Amount", "CreatedBy", "PostedBy"];
+  const tableColumn = ["Branch", "Voucher No", "Voucher Date", "Particulars", "Amount", "CreatedBy", "PostedBy"];
   // define an empty array of rows
   const tableRows = [];
 
@@ -36,6 +36,7 @@ const generatePDF = vouchers => {
   // for each voucher pass all its data into an array
   vouchers.forEach(voucher => {
     const voucherData = [
+      voucher.BrName,
       voucher.VoucherNumber,
       vDate,
       voucher.Particulars,
@@ -68,7 +69,7 @@ const generateExcelSheet = async vouchers => {
   }
 
   // define the columns we want and their titles
-  const tableColumn = ["Voucher No", "Voucher Date", "Particulars", "Amount", "CreatedBy", "PostedBy"];
+  const tableColumn = ["Branch", "Voucher No", "Voucher Date", "Particulars", "Amount", "CreatedBy", "PostedBy"];
 
   // define an empty array of rows
   const tableRows = [];
@@ -78,6 +79,7 @@ const generateExcelSheet = async vouchers => {
   // for each voucher pass all its data into an array
   vouchers.forEach(voucher => {
     const voucherData = [
+      voucher.BrName,
       voucher.VoucherNumber,
       vDate,
       voucher.Particulars,
@@ -198,7 +200,10 @@ export default function VouchersList() {
 
           <h3 className=" text-black text-3xl font-bold mb-6 mt-14 ">List of Vouchers</h3>
 
-          <div>
+          <div className=' flex flex-col items-center'>
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+              Date
+            </label>
             <DatePicker
               className="appearance-textfield block w-min bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
                                 leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500"
@@ -211,7 +216,9 @@ export default function VouchersList() {
             <Table sx={{ minWidth: 350, }} aria-label="customized table">
               <TableHead>
                 <TableRow>
+                  <StyledTableCell align='center'>Branch</StyledTableCell>
                   <StyledTableCell align='center'>Voucher Number</StyledTableCell>
+                  <StyledTableCell align='center'>Period</StyledTableCell>
                   <StyledTableCell align='center'>Voucher Date</StyledTableCell>
                   <StyledTableCell align='center'>Particulars</StyledTableCell>
                   <StyledTableCell align='center'>Amount</StyledTableCell>
@@ -224,8 +231,10 @@ export default function VouchersList() {
                   vouchers.map((voucher) => (
                     <StyledTableRow key={voucher.VoucherNumber}>
                       <StyledTableCell component="th" scope="row">
-                        {voucher.VoucherNumber}
+                        {voucher.BrName}
                       </StyledTableCell>
+                      <StyledTableCell align='center'>{voucher.VoucherNumber}</StyledTableCell>
+                      <StyledTableCell align='center'>{voucher.PeriodName}</StyledTableCell>
                       <StyledTableCell align='center'>{formattedDate}</StyledTableCell>
                       <StyledTableCell align='center'>{filterNullValue(voucher.Particulars)}</StyledTableCell>
                       <StyledTableCell align='center'>{voucher.Amount}</StyledTableCell>
@@ -241,14 +250,14 @@ export default function VouchersList() {
             {/* PDF Button */}
             <button
               disabled={vouchersFetched ? false : true}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2 mr-2"
+              className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md mb-2 mr-2"
               onClick={() => { generatePDF(vouchers) }}>
               Downlaod as PDF
             </button>
             {/* Excel Button */}
             <button
               disabled={vouchersFetched ? false : true}
-              className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md mb-2"
+              className="bg-CancelExcel hover:bg-CancelExcelHover text-white px-4 py-2 rounded-md mb-2"
               onClick={() => { generateExcelSheet(vouchers) }}>
               Download as Excel
             </button>

@@ -360,7 +360,7 @@ function ManageAccounts() {
                                     </button> */}
                                     {/* Remove Button */}
                                     <button
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                                        className="bg-CancelExcel hover:bg-CancelExcelHovertext-white px-4 py-2 rounded-md"
                                         onClick={() => handleAccountDelete(acc.AccountCode)}>
                                         Remove
                                     </button>

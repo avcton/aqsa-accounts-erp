@@ -248,7 +248,7 @@ function RoleManagement() {
 
                         <div className="flex justify-center px-4 py-2">
                             <button
-                                className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md"
+                                className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md"
                                 type="submit" >
                                 Create Role
                             </button>
@@ -278,7 +278,7 @@ function RoleManagement() {
                                 </button> */}
                                     {/* Delete Button */}
                                     <button
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                                        className="bg-CancelExcel hover:bg-CancelExcelHover text-white px-4 py-2 rounded-md"
                                         onClick={() => handleRoleDelete(role.RoleName)}>
                                         Delete
                                     </button>

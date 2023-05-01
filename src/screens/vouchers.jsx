@@ -325,7 +325,7 @@ export default function Voucher({ user }) {
     // Utility Functions
     function getFormattedDate(date) {
         const dt = new Date(date);
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const options = { timeZone: 'Asia/Karachi', month: 'long', day: 'numeric', year: 'numeric' };
         return dt.toLocaleDateString('en-US', options);
     }
 
@@ -515,7 +515,7 @@ export default function Voucher({ user }) {
                     <div className="flex justify-center px-4 py-4">
                         <button
                             disabled={invalidButtonState()}
-                            className='px-4 py-2 mt-4 bg-orange-400 hover:bg-orange-500 font-semibold text-white rounded-lg'>Create Voucher</button>
+                            className='px-4 py-2 mt-4 bg-SubmitPDF hover:bg-SubmitPDFHover font-semibold text-white rounded-lg'>Create Voucher</button>
                     </div>
                 </form>
 
@@ -573,12 +573,12 @@ export default function Voucher({ user }) {
                                 {v.PostedBy == null && <div className=" flex flex-col space-y-2">
                                     {/* Post / Delete Button */}
                                     <button
-                                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
+                                        className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md"
                                         onClick={() => { handleVoucherToggle(v.VoucherNumber) }}>
                                         Post
                                     </button> :
                                     <button
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                                        className="bg-CancelExcel hover:bg-CancelExcelHovertext-white px-4 py-2 rounded-md"
                                         onClick={() => { handleVoucherDelete(v.VoucherNumber) }}>
                                         Delete
                                     </button>

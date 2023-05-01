@@ -4,7 +4,7 @@ import NavBar from "./utils/navBar"
 import TopBar from "./utils/topBar"
 import BottomFooter from "./utils/footer"
 import { useLocation } from "react-router-dom"
-import { GetScreen } from "./utils/menuItems"
+import { GetScreen } from "./utils/pageNavigation"
 
 function Home() {
     const { state } = useLocation()
@@ -18,7 +18,7 @@ function Home() {
         <PageAnimation>
             <div className=" flex">
                 {/* Nav Bar */}
-                <NavBar changePage={changePage} />
+                <NavBar rights={rights} changePage={changePage} />
                 {/* Top Bar */}
                 <TopBar name={name} role={role} />
                 {/* Bottom Bar */}

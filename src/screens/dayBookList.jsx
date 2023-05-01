@@ -203,6 +203,7 @@ export default function DayBookList() {
               <TableHead>
                 <TableRow>
                   <StyledTableCell align='center'>Voucher Number</StyledTableCell>
+                  <StyledTableCell align='center'>Period</StyledTableCell>
                   <StyledTableCell align='center'>Voucher Date</StyledTableCell>
                   <StyledTableCell align='center'>Particulars</StyledTableCell>
                   <StyledTableCell align='center'>Amount</StyledTableCell>
@@ -217,6 +218,7 @@ export default function DayBookList() {
                       <StyledTableCell component="th" scope="row">
                         {voucher.VoucherNumber}
                       </StyledTableCell>
+                      <StyledTableCell align='center'>{voucher.PeriodName}</StyledTableCell>
                       <StyledTableCell align='center'>{formattedDate}</StyledTableCell>
                       <StyledTableCell align='center'>{filterNullValue(voucher.Particulars)}</StyledTableCell>
                       <StyledTableCell align='center'>{voucher.Amount}</StyledTableCell>
@@ -232,14 +234,14 @@ export default function DayBookList() {
             {/* PDF Button */}
             <button
               disabled={vouchersFetched ? false : true}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mb-2 mr-2"
+              className="bg-SubmitPDF hover:bg-SubmitPDFHover text-white px-4 py-2 rounded-md mb-2 mr-2"
               onClick={() => { generatePDF(vouchers) }}>
               Downlaod as PDF
             </button>
             {/* Excel Button */}
             <button
               disabled={vouchersFetched ? false : true}
-              className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md mb-2"
+              className="bg-CancelExcel hover:bg-CancelExcelHover text-white px-4 py-2 rounded-md mb-2"
               onClick={() => { generateExcelSheet(vouchers) }}>
               Download as Excel
             </button>
