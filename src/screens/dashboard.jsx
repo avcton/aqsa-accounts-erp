@@ -3,7 +3,7 @@ import { baseURL } from "../utils/constants"
 import { format } from 'date-fns'
 import LoaderAnimation from "../utils/loader";
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
     const [date, changeDate] = useState(new Date())
@@ -38,10 +38,6 @@ export default function Dashboard() {
             getTotalSales()
         }
     }, [formattedDate])
-
-    useEffect(() => {
-        console.log(totalSales)
-    }, [totalSales])
 
     const getTodaySales = async () => {
         setTodaySalesFetched(false)
@@ -141,7 +137,7 @@ export default function Dashboard() {
 
                     <div className=" flex flex-col justify-center items-center bg-white text-black rounded shadow p-5">
                         <h2 className="text-xl font-bold mb-5">Accounts Payable</h2>
-                        {todaySalesFetched ?
+                        {accountsPayableFetched ?
                             <p className="text-3xl font-bold">Rs {accountsPayable}</p>
                             : <LoaderAnimation />}
                     </div>
@@ -149,7 +145,7 @@ export default function Dashboard() {
                     {/* Accounts Receivable */}
                     <div className=" flex flex-col justify-center items-center bg-white text-black rounded shadow p-5">
                         <h2 className="text-xl font-bold mb-5">Accounts Receivable</h2>
-                        {todaySalesFetched ?
+                        {accountsRecievablesFetched ?
                             <p className="text-3xl font-bold">Rs {accountsRecievables}</p>
                             : <LoaderAnimation />}
                     </div>
@@ -174,32 +170,36 @@ export default function Dashboard() {
                     </div>
                     <div className="bg-white text-black rounded shadow p-5">
                         <h2 className="text-lg font-bold mb-5">Trend</h2>
-                        <ResponsiveContainer height={350}>
-                            <LineChart data={debitCredit}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="Debit" stroke="#8884d8" activeDot={{ r: 8 }} />
-                                <Line type="monotone" dataKey="Credit" stroke="#82ca9d" />
-                            </LineChart>
-                        </ResponsiveContainer>
+                        {debitCreditFetched ?
+                            <ResponsiveContainer height={350}>
+                                <LineChart data={debitCredit}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="Debit" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                    <Line type="monotone" dataKey="Credit" stroke="#82ca9d" />
+                                </LineChart>
+                            </ResponsiveContainer> : <LoaderAnimation />
+                        }
                     </div>
 
                     <div className="bg-white text-black rounded shadow p-5">
                         <h2 className="text-lg font-bold mb-5">Debit / Credit</h2>
-                        <ResponsiveContainer height={350}>
-                            <BarChart data={debitCredit}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="Debit" fill="#8884d8" />
-                                <Bar dataKey="Credit" fill="#82ca9d" />
-                            </BarChart>
-                        </ResponsiveContainer>
+                        {debitCreditFetched ?
+                            <ResponsiveContainer height={350}>
+                                <BarChart data={debitCredit}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="Debit" fill="#8884d8" />
+                                    <Bar dataKey="Credit" fill="#82ca9d" />
+                                </BarChart>
+                            </ResponsiveContainer> : <LoaderAnimation />
+                        }
                     </div>
                 </div>
             </main>

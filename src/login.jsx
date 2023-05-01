@@ -5,7 +5,7 @@ import PageAnimation from './utils/PageAnimation'
 import { baseURL } from './utils/constants'
 import Swal from 'sweetalert2'
 
-function LogIn() {
+function LogIn({ setAuthenticated }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -40,7 +40,10 @@ function LogIn() {
         text: "Successfully Authenticated",
         showConfirmButton: false,
         timer: 2000,
-      }).then(() => navigate("home", { replace: true, state: { name: response.Message.Name, role: response.Message.RoleName, rights: response.Message.Rights } }));
+      }).then(() => {
+        setAuthenticated(true)
+        navigate("home", { replace: true, state: { name: response.Message.Name, role: response.Message.RoleName, rights: response.Message.Rights } })
+      });
     }
     else {
       Swal.fire({
