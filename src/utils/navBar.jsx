@@ -3,7 +3,8 @@ import logo from "../assets/logo.png"
 import i_coa from '../assets/MenuIcons/coa-icon.svg'
 import i_dashboard from '../assets/MenuIcons/dashboard-icon.svg'
 import i_manage from '../assets/MenuIcons/manage-icon.svg'
-import i_reports from '../assets/MenuIcons/reports-icon.svg'
+import i_tabreports from '../assets/MenuIcons/tabular_reports-icon.svg'
+import i_graphreports from '../assets/MenuIcons/graphic_reports-icon.svg'
 import i_setup from '../assets/MenuIcons/setup-icon.svg'
 import i_voucher from '../assets/MenuIcons/voucher-icon.svg'
 import rarrow from '../assets/MenuIcons/right-arrow.svg'
@@ -47,7 +48,16 @@ function NavBar({ rights, changePage }) {
 
         rightExist('Fetch Reports') &&
         {
-            title: "Reports", icon: i_reports, gap: true,
+            title: "Graphical Reports", icon: i_graphreports, gap: true,
+            subMenus: [
+                { title: 'Monthly Revenue', icon: logo, },
+                { title: 'Debit / Credit', icon: logo, },
+            ]
+        },
+
+        rightExist('Fetch Reports') &&
+        {
+            title: "Tabular Reports", icon: i_tabreports, gap: true,
             subMenus: [
                 { title: 'Vouchers List', icon: logo, },
                 { title: 'Daybook List', icon: logo, },

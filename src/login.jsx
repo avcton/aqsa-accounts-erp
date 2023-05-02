@@ -65,7 +65,14 @@ function LogIn({ setAuthenticated }) {
           <form onSubmit={loginUser} noValidate className='  mt-10 flex flex-col items-center'>
             <input onChange={e => setUsername(e.target.value)} id="username" type="text" placeholder="Username" class=" focus:outline-blue-400 bg-gray-50 shadow-md border rounded-md w-full py-2 px-3 text-black focus:outline-double outline-yellow-100 focus:shadow-outline"></input>
             <input onChange={e => setPassword(e.target.value)} id="password" type="password" placeholder="Password" class=" mt-5 focus:outline-blue-400 bg-gray-50 shadow-md border rounded-md w-full py-2 px-3 text-black focus:outline-double outline-yellow-100 focus:shadow-outline"></input>
-            <a href='#' className=' mt-5 text-blue-300 underline'>Forgot Password</a>
+            <a onClick={() => {
+              Swal.fire({
+                title: 'We Got You',
+                text: "Your request will be send to an admin",
+                showConfirmButton: false,
+                timer: 2000,
+              })
+            }} className=' mt-5 text-blue-300 cursor-pointer underline'>Forgot Password</a>
             <button className=' transition ease-in-out delay-150 duration-300 transform hover:scale-105 mt-5 focus:outline-none'>login</button>
           </form>
         </div>

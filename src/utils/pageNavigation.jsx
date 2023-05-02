@@ -16,6 +16,8 @@ import PayablesReport from "../screens/payablesReport"
 import ReceivablesReport from "../screens/receivablesReport"
 import Voucher from "../screens/vouchers"
 import ExpiredVouchers from "../screens/expiredVouchers"
+import MonthlyRevenue from "../screens/revenueGreport"
+import DebitCredit from "../screens/debitCreditGreport"
 
 export function GetScreen({ screen, user }) {
     const PageNavigation = {
@@ -31,6 +33,8 @@ export function GetScreen({ screen, user }) {
         'Expired Vouchers': <ExpiredVouchers />,
 
         // Reports
+        'Monthly Revenue': <MonthlyRevenue />,
+        'Debit / Credit': <DebitCredit />,
         'Vouchers List': <VouchersList />,
         'Daybook List': <DayBookList />,
         'Ledger Report': <LedgerReport />,
