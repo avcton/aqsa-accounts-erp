@@ -20,6 +20,25 @@ export default function Dashboard() {
     const [totalSalesFetched, setTotalSalesFetched] = useState(false)
     const [accountsPayableFetched, setAccountsPayableFetched] = useState(false)
     const [accountsRecievablesFetched, setAccountsRecievablesFetched] = useState(false)
+    const [screenDimensions, setScreenDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const [colorScale, setColorScale] = useState([]);
 
@@ -171,7 +190,7 @@ export default function Dashboard() {
                     <div className="flex flex-col items-center bg-white text-black rounded shadow p-5">
                         <h2 className="text-lg font-bold mb-5">Sales Trend</h2>
                         {totalSalesFetched ?
-                            <ResponsiveContainer height={350}>
+                            <ResponsiveContainer height={screenDimensions.height * 0.5}>
                                 <LineChart data={totalSales}>
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="Name" />
@@ -184,10 +203,10 @@ export default function Dashboard() {
                         }
                     </div>
                     <div className="flex flex-col items-center bg-white text-black rounded shadow p-5">
-                        <h2 className="text-lg font-bold mb-5">Segmented Expenses</h2>
+                        <h2 className="text-lg font-bold mb-5">Monthly Segementation</h2>
                         {dataFetched ?
-                            <ResponsiveContainer height={350}>
-                                <PieChart width={400} height={400} >
+                            <ResponsiveContainer height={screenDimensions.height * 0.5}>
+                                <PieChart width={400} >
                                     <Pie
                                         data={data}
                                         dataKey="value"
