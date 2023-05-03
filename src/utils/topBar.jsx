@@ -2,7 +2,7 @@ import UserImage from "./userImage";
 
 export default function TopBar({ image, name, role }) {
     return (
-        <div className=" bg-inherit shadow-md bg-white w-screen font-normal z-40 absolute top-0 flex flex-row justify-center items-center text-black">
+        <div className=" bg-inherit shadow-md bg-white w-screen font-normal z-40 fixed top-0 flex flex-row justify-center items-center text-black">
             <h4 className=" my-4 font-light">Aqsa Traders</h4>
             <div className=" flex flex-row absolute right-2 items-center">
                 <div className=" flex flex-col items-center">

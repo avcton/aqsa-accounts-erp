@@ -133,7 +133,7 @@ function NavBar({ rights, changePage }) {
         return false
     }
     return (
-        <div className={` ${menuOpen ? "w-72" : "w-20"} z-50 bg-slate-50 duration-300 h-screen shadow-2xl absolute p-2 pt-3`}>
+        <div className={` ${menuOpen ? "w-72" : "w-20"} z-50 bg-slate-50 duration-300 h-screen shadow-2xl fixed p-2 pt-3`}>
             <img
                 src={rarrow}
                 className={` absolute w-12 cursor-pointer duration-500 z-1 rounded-full ${!menuOpen ? "rotate-0" : "rotate-180"}

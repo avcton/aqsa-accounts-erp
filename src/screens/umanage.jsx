@@ -235,7 +235,7 @@ function UserManagement() {
             <motion.div initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
-                transition={{ duration: 0.5 }} className=" flex flex-col mt-14 items-center h-screen w-screen bg-slate-50 overflow-auto">
+                transition={{ duration: 0.5 }} className=" relative flex flex-col mt-14 items-center h-screen w-screen bg-slate-50 overflow-auto">
 
                 <div className=" flex flex-col justify-center items-center mt-14">
                     <h3 className=" text-black text-3xl font-bold mb-6 ">Add New User</h3>
