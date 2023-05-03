@@ -203,7 +203,7 @@ export default function Dashboard() {
                         }
                     </div>
                     <div className="flex flex-col items-center bg-white text-black rounded shadow p-5">
-                        <h2 className="text-lg font-bold mb-5">Monthly Segementation</h2>
+                        <h2 className="text-lg font-bold mb-5">Monthly Segmentation</h2>
                         {dataFetched ?
                             <ResponsiveContainer height={screenDimensions.height * 0.5}>
                                 <PieChart width={400} >
