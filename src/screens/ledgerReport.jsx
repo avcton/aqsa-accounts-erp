@@ -163,7 +163,6 @@ export default function LedgerReport() {
 
   React.useEffect(() => {
     if (formattedDate != null) {
-      console.log(formattedDate)
       getLedger()
     }
   }, [formattedDate])

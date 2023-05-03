@@ -265,7 +265,7 @@ function UserManagement() {
                                 </label>
                                 <input name="Password" onChange={handleInputChange}
                                     value={newUser.Password} className="appearance-textfield block w-full bg-gray-100 text-black border border-gray-300 rounded-lg py-4 px-4 mb-3 
-                            leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="text" placeholder="Password" />
+                            leading-tight focus:outline-none focus:bg-gray-50 focus:border-gray-500" id="grid-card-number" type="password" placeholder="Password" />
                             </div>
 
                             <div className="w-full px-3 py-3">
