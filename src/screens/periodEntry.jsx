@@ -137,12 +137,14 @@ export default function PeriodEntry() {
   }
 
   const handlePeriodToggle = async (PeriodCode) => {
+    Swal.showLoading()
     return await fetch(`${baseURL}/api/period/${PeriodCode}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(async data => {
+      Swal.hideLoading()
       if (data.ok) {
         getPeriods()
         data = await data.json()
