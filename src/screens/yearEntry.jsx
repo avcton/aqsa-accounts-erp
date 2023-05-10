@@ -19,12 +19,14 @@ export default function YearEntry() {
     };
 
     const handleYearToggle = async (YearCode) => {
+        Swal.showLoading()
         return await fetch(`${baseURL}/api/year/${YearCode}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(async data => {
+            Swal.hideLoading()
             if (data.ok) {
                 getYears()
                 data = await data.json()

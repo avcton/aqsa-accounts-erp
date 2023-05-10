@@ -5,7 +5,7 @@ import PageAnimation from './utils/PageAnimation'
 import { baseURL } from './utils/constants'
 import Swal from 'sweetalert2'
 
-function LogIn({ setAuthenticated }) {
+function LogIn() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -41,7 +41,6 @@ function LogIn({ setAuthenticated }) {
         showConfirmButton: false,
         timer: 2000,
       }).then(() => {
-        setAuthenticated(true)
         navigate("home", { replace: true, state: { name: response.Message.Name, role: response.Message.RoleName, rights: response.Message.Rights } })
       });
     }
@@ -67,8 +66,8 @@ function LogIn({ setAuthenticated }) {
             <input onChange={e => setPassword(e.target.value)} id="password" type="password" placeholder="Password" class=" mt-5 focus:outline-blue-400 bg-gray-50 shadow-md border rounded-md w-full py-2 px-3 text-black focus:outline-double outline-yellow-100 focus:shadow-outline"></input>
             <a onClick={() => {
               Swal.fire({
-                title: 'We Got You',
-                text: "Your request will be send to an admin",
+                title: 'Contact An Admin',
+                text: "avcton@gmail.com",
                 showConfirmButton: false,
                 timer: 2000,
               })
