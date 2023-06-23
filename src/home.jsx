@@ -1,26 +1,40 @@
+import { useState, useEffect } from "react"
 import PageAnimation from "./utils/PageAnimation"
-import logo from "./assets/logo.png"
+import { useNavigate } from 'react-router-dom'
 import NavBar from "./utils/navBar"
 import TopBar from "./utils/topBar"
 import BottomFooter from "./utils/footer"
 import { useLocation } from "react-router-dom"
+import { GetScreen } from "./utils/pageNavigation"
 
-function Home(){
+function Home() {
     const { state } = useLocation()
-    const { name, role } = state
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!state) {
+            navigate("/")
+        }
+    }, [state, navigate])
+
+    if (!state) { return null }
+
+    // Name, Role and User Rights
+    const { name, role, rights } = state || {}
+
+    // Initial Page = Dashboard
+    const [page, changePage] = useState('Dashboard')
     return (
         <PageAnimation>
             <div className=" flex">
                 {/* Nav Bar */}
-                    <NavBar/>
+                <NavBar rights={rights} changePage={changePage} />
                 {/* Top Bar */}
-                    <TopBar name={name} role={role}/>
+                <TopBar name={name} role={role} />
                 {/* Bottom Bar */}
-                    <BottomFooter/>
+                <BottomFooter />
                 {/* Page Content */}
-                <div className=" flex flex-col justify-center items-center h-screen w-screen">
-                    <h3 className=" text-black">This is the home page</h3>
-                </div>
+                <GetScreen screen={page} user={{ name, role, rights }} />
             </div>
         </PageAnimation>
     )

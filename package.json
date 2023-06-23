@@ -9,12 +9,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^10.0.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.16",
+    "chroma-js": "^2.4.2",
+    "file-saver": "^2.0.5",
+    "framer": "^2.3.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
+    "react-calendar": "^4.2.1",
+    "react-d3-tree": "^3.5.1",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-router-dom": "^6.8.2",
+    "react-select": "^5.7.2",
+    "recharts": "^2.5.0",
     "sweetalert2": "^11.7.3",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
