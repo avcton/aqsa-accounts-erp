@@ -24,8 +24,13 @@
 - [x] ​Download as PDF​
 - [x] ​Download as Excel Sheet
 
+### Architecture
+<img width="442" alt="image" src="https://github.com/avcton/aqsa-accounts-erp/assets/67834876/e43d21c1-1895-4853-bc32-2921e9a67490">
+
 ### Interaction Model
-<img width="563" alt="image" src="https://github.com/avcton/aqsa-accounts-erp/assets/67834876/41e1068d-5c37-4410-b73a-ae3ff2bf7368">
+<img width="563" alt="image" src="https://github.com/avcton/aqsa-accounts-erp/assets/67834876/71d62296-d7c0-48a9-bf77-bcc8c6a44631">
 
 ### Class Model
-<img width="496" alt="image" src="https://github.com/avcton/aqsa-accounts-erp/assets/67834876/8c845a9c-f98c-47f5-85e9-5eb148b80b0d">
+<img width="496" alt="image" src="https://github.com/avcton/aqsa-accounts-erp/assets/67834876/241ed08e-cc3a-4bab-9b46-9222df56e683">
+
+----
