@@ -1,5 +1,5 @@
-# Accounts Module
-> An accounts application built as a solution for Aqsa Traders Pvt Ltd.
+# Fiscal Count
+> An accounts application built in React & .NET as a solution for Aqsa Traders Pvt Ltd.
 
 ### Proposed Use Cases:
 
